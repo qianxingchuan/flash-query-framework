@@ -26,4 +26,11 @@ public interface StaticDataPersistentProcessor<T> {
      * @return 对应的静态化结果数据
      */
     T getStaticData(String key);
+
+    /**
+     * 存储类型
+     *
+     * @return
+     */
+    String storeType();
 }
