@@ -3,10 +3,13 @@ package io.github.xingchuan.query.provider.processor.convertor;
 import cn.hutool.core.util.DesensitizedUtil;
 import cn.hutool.json.JSONObject;
 import io.github.xingchuan.query.api.processor.convertor.FieldValueConvertor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 脱敏相关的处理
+ *
  * @author xingchuan.qxc
  * @date 2022/6/4
  */
@@ -27,7 +30,13 @@ public class DesensitizeFieldValueConvertor implements FieldValueConvertor<Strin
 
     @Override
     public String processConvert(String inputValue, JSONObject params) {
-        // todo 脱敏的相关处理
-        return DesensitizedUtil.desensitized(inputValue, DesensitizedUtil.DesensitizedType.PASSWORD);
+        // 取值见 @see cn.hutool.core.util.DesensitizedUtil.DesensitizedType
+        String desensitizeType = params != null ? params.getStr("desensitizeType") : StringUtils.EMPTY;
+
+        DesensitizedUtil.DesensitizedType desensitizedType = DesensitizedUtil.DesensitizedType.PASSWORD;
+        if (StringUtils.isNotBlank(desensitizeType)) {
+            desensitizedType = DesensitizedUtil.DesensitizedType.valueOf(desensitizeType);
+        }
+        return DesensitizedUtil.desensitized(inputValue, desensitizedType);
     }
 }

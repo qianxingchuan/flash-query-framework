@@ -18,8 +18,9 @@ public interface DataQueryProcessor {
      * @param query      查询涉及的关键，比如sql，api的请求body等
      * @param dataSource 查询数据源，比如mysql，另一个api服务等
      * @return 结果集
+     * @throws Exception
      */
-    JSONArray queryData(String query, DataSource dataSource);
+    JSONArray queryData(String query, DataSource dataSource) throws Exception;
 
     /**
      * 在数据源dataSource中执行一个更新操作
@@ -28,7 +29,7 @@ public interface DataQueryProcessor {
      * @param dataSource 数据源，比如mysql，另一个api服务
      * @return 执行数据源的返回结果，转换成统一的json格式返回
      */
-    JSON executeUpdate(String update, DataSource dataSource);
+    JSON executeUpdate(String update, DataSource dataSource) throws Exception;
 
     /**
      * 处理器的类型，全局应该唯一

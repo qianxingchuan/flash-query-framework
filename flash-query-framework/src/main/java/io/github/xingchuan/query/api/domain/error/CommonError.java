@@ -1,6 +1,8 @@
 package io.github.xingchuan.query.api.domain.error;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 
 import java.util.Map;
 
@@ -26,8 +28,6 @@ public class CommonError extends Error {
     public static CommonError NOT_SUPPORT_OPERATION() {
         return new CommonError("J0000001", "不支持的操作,{operation}");
     }
-
-    ;
 
     public CommonError(String errorCode, String errorMsg) {
         this.errorCode = errorCode;
@@ -55,6 +55,15 @@ public class CommonError extends Error {
         this.setErrorMsg(content);
         return this;
     }
+
+    public CommonError withParam(String key, Object param) {
+        JSONObject params = JSONUtil.createObj();
+        params.set(key, param);
+        String content = StrUtil.format(this.errorMsg, params);
+        this.setErrorMsg(content);
+        return this;
+    }
+
 
     public String getErrorCode() {
         return errorCode;
