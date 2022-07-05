@@ -10,11 +10,14 @@ import io.github.xingchuan.query.api.domain.enums.DataSourceType;
 import io.github.xingchuan.query.api.domain.error.CommonError;
 import io.github.xingchuan.query.api.processor.query.DataQueryProcessor;
 import io.github.xingchuan.query.provider.processor.query.connection.SqlConnectionPoolManager;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+
+import static io.github.xingchuan.query.provider.processor.query.connection.DefaultJdbcDirectConnectPool.DIRECT_JDBC;
 
 /**
  * 通过sql查询数据
@@ -31,9 +34,16 @@ public class SqlDataQueryProcessor implements DataQueryProcessor {
 
     private String connectionPoolType;
 
+    public SqlDataQueryProcessor(SqlConnectionPoolManager sqlConnectionPoolManager) {
+        this(sqlConnectionPoolManager, null);
+    }
+
     public SqlDataQueryProcessor(SqlConnectionPoolManager sqlConnectionPoolManager, String connectionPoolType) {
         this.sqlConnectionPoolManager = sqlConnectionPoolManager;
         this.connectionPoolType = connectionPoolType;
+        if (StringUtils.isBlank(connectionPoolType)) {
+            this.connectionPoolType = DIRECT_JDBC;
+        }
     }
 
     @Override
@@ -47,7 +57,7 @@ public class SqlDataQueryProcessor implements DataQueryProcessor {
             int columnCount = metaData.getColumnCount();
             while (resultSet.next()) {
                 JSONObject rowJson = JSONUtil.createObj();
-                for (int i = 0; i < columnCount; i++) {
+                for (int i = 1; i <= columnCount; i++) {
                     String columnName = metaData.getColumnName(i);
                     rowJson.set(columnName, resultSet.getString(columnName));
                 }
