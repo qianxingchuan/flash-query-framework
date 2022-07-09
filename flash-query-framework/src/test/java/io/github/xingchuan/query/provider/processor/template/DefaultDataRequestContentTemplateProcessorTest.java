@@ -31,10 +31,10 @@ public class DefaultDataRequestContentTemplateProcessorTest {
 
         // 循环
         String templateContent2 = "select * from t_user where user_code in (<%for(user in userCodes) {%>" +
-                "<% if (userLP.last) {%>" +
-                "'${user}'" +
-                "<% } else { %>" +
+                "<% if (!userLP.last) {%>" +
                 "'${user}'," +
+                "<% } else { %>" +
+                "'${user}'" +
                 "<% } %>" +
                 "<% } %>)";
         String sql2 = templateProcessor.parseRequestContent(templateContent2, params);
