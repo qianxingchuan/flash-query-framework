@@ -9,6 +9,7 @@ import io.github.xingchuan.query.api.domain.base.DataSource;
 import io.github.xingchuan.query.api.domain.enums.DataSourceType;
 import io.github.xingchuan.query.api.domain.error.CommonError;
 import io.github.xingchuan.query.api.processor.query.DataQueryProcessor;
+import io.github.xingchuan.query.provider.helper.ResponseBuilder;
 import io.github.xingchuan.query.provider.processor.query.connection.SqlConnectionPoolManager;
 import org.apache.commons.lang3.StringUtils;
 
@@ -77,10 +78,7 @@ public class SqlDataQueryProcessor implements DataQueryProcessor {
             rowsEffect = connection.prepareStatement(update).executeUpdate();
             connection.commit();
         }
-        JSONObject ret = JSONUtil.createObj();
-        ret.set("status", "ok");
-        ret.set("rowsEffect", rowsEffect);
-        return ret;
+        return ResponseBuilder.buildResponse(true, "", "", rowsEffect);
     }
 
     @Override
