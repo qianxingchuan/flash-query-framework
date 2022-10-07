@@ -16,11 +16,12 @@ public abstract class AbstractConnectionPool implements SqlConnectionPool {
 
     public AbstractConnectionPool(SqlConnectionPoolManager sqlConnectionPoolManager) {
         this.sqlConnectionPoolManager = sqlConnectionPoolManager;
+        registerDataSource();
     }
 
 
     @Override
-    public void registerDataSource() throws Exception {
+    public void registerDataSource() {
         this.sqlConnectionPoolManager.registerSqlConnectionPool(this);
     }
 }

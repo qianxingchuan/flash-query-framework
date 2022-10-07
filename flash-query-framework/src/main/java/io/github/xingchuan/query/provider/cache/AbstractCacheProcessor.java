@@ -18,7 +18,7 @@ public abstract class AbstractCacheProcessor implements DataCacheProcessor {
     public AbstractCacheProcessor(CacheManager cacheManager) {
         this.cacheManager = cacheManager;
         //注册到缓存管理
-        this.cacheManager.registerCacheProcessor(this.cacheType(), this);
+        this.cacheManager.registerCacheProcessor(this);
     }
 
 

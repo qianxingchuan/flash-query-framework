@@ -77,4 +77,15 @@ public class DataQueryResponse<T> implements Serializable {
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
     }
+
+
+    @Override
+    public String toString() {
+        return "DataQueryResponse{" +
+                "success=" + success +
+                ", errorCode='" + errorCode + '\'' +
+                ", errorMsg='" + errorMsg + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

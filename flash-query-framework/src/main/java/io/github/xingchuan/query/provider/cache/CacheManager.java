@@ -25,7 +25,8 @@ public class CacheManager {
      * @param type           缓存类型
      * @param cacheProcessor 缓存处理器
      */
-    public void registerCacheProcessor(String type, DataCacheProcessor cacheProcessor) {
+    public void registerCacheProcessor(DataCacheProcessor cacheProcessor) {
+        String type = cacheProcessor.cacheType();
         cacheProcessorMap.put(type, cacheProcessor);
         logger.info("cache {} registered.", type);
     }

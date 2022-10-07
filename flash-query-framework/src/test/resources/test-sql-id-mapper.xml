@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<mapper namespace="not_necessary">
+
+    <select id="getUserById">
+        select *
+        from USER_INF
+        where id = #{id}
+    </select>
+</mapper>
