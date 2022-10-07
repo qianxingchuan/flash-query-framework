@@ -12,7 +12,7 @@ import java.util.List;
  * 包括查询模板， 数据源
  *
  * @author xingchuan.qxc
- * @date 2022/7/9
+ * @since  1.0
  */
 public class DataQueryScenario implements Serializable {
 

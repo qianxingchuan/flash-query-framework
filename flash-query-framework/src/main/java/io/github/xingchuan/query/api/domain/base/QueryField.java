@@ -9,7 +9,7 @@ import java.util.Set;
  * 涉及到的查询、返回字段的配置
  *
  * @author xingchuan.qxc
- * @date 2022/6/4
+ * @since  1.0
  */
 public class QueryField implements Serializable {
 

@@ -7,7 +7,7 @@ import cn.hutool.json.JSONUtil;
  * 构建响应体
  *
  * @author xingchuan.qxc
- * @date 2022/7/9
+ * @since  1.0
  */
 public class ResponseBuilder {
 

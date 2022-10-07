@@ -12,7 +12,7 @@ import java.util.Map;
  * 连接池的管理类
  *
  * @author xingchuan.qxc
- * @date 2022/6/12
+ * @since 1.0
  */
 public class SqlConnectionPoolManager {
 

@@ -10,7 +10,7 @@ import java.util.Map;
  * 框架的错误
  *
  * @author xingchuan.qxc
- * @date 2022/6/4
+ * @since  1.0
  */
 public class CommonError extends Error {
 

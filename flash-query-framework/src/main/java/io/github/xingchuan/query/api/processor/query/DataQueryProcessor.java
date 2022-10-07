@@ -8,7 +8,7 @@ import io.github.xingchuan.query.api.domain.base.DataSource;
  * 数据查询的指定processor
  *
  * @author xingchuan.qxc
- * @date 2022/6/4
+ * @since  1.0
  */
 public interface DataQueryProcessor {
 

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 查询数据源
  *
  * @author xingchuan.qxc
- * @date 2022/6/4
+ * @since  1.0
  */
 public class DataSource implements Serializable {
 

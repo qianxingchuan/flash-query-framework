@@ -20,7 +20,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 /**
  * @author xingchuan.qxc
- * @date 2022/7/3
+ * @since 1.0
  */
 public class SqlDataQueryProcessorTest {
 

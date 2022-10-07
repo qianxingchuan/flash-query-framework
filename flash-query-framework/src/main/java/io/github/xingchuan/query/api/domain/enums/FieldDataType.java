@@ -4,7 +4,7 @@ package io.github.xingchuan.query.api.domain.enums;
  * 字段类型定义
  *
  * @author xingchuan.qxc
- * @date 2022/6/4
+ * @since  1.0
  */
 public enum FieldDataType {
 

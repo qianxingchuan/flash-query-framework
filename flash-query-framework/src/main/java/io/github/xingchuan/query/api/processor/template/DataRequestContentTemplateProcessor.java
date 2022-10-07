@@ -6,7 +6,7 @@ import cn.hutool.json.JSONObject;
  * 用于生成数据请求涉及的content，比如sql，api的body
  *
  * @author xingchuan.qxc
- * @date 2022/6/4
+ * @since  1.0
  */
 public interface DataRequestContentTemplateProcessor {
 

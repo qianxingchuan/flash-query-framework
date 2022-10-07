@@ -24,7 +24,7 @@ import static io.github.xingchuan.query.provider.processor.query.connection.Defa
  * 通过sql查询数据
  *
  * @author xingchuan.qxc
- * @date 2022/6/12
+ * @since 1.0
  */
 public class SqlDataQueryProcessor implements DataQueryProcessor {
 

@@ -4,7 +4,7 @@ package io.github.xingchuan.query.api.domain.enums;
  * 数据源类型
  *
  * @author xingchuan.qxc
- * @date 2022/6/4
+ * @since  1.0
  */
 public enum DataSourceType {
 

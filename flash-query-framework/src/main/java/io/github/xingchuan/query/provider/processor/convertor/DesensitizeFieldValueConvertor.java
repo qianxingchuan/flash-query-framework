@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * 脱敏相关的处理
  *
  * @author xingchuan.qxc
- * @date 2022/6/4
+ * @since  1.0
  */
 public class DesensitizeFieldValueConvertor implements FieldValueConvertor<String, String> {
 

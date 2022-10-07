@@ -6,7 +6,7 @@ import cn.hutool.json.JSONObject;
  * 字段值转换器
  *
  * @author xingchuan.qxc
- * @date 2022/6/4
+ * @since  1.0
  */
 public interface FieldValueConvertor<I, O> {
 

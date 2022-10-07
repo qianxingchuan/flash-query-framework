@@ -12,7 +12,7 @@ import java.sql.DriverManager;
  * 直连JDBC
  *
  * @author xingchuan.qxc
- * @date 2022/7/2
+ * @since 1.0
  */
 public class DefaultJdbcDirectConnectPool extends AbstractConnectionPool {
 

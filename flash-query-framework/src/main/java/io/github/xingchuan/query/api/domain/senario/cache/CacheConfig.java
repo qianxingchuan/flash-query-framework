@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 对于输出查询场景的缓存处理
  *
  * @author xingchuan.qxc
- * @date 2022/7/9
+ * @since  1.0
  */
 public class CacheConfig implements Serializable {
 

@@ -1,13 +1,12 @@
 package io.github.xingchuan.query.provider.processor.query.connection;
 
-import io.github.xingchuan.query.api.domain.base.DataSource;
 import io.github.xingchuan.query.api.processor.query.SqlConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author xingchuan.qxc
- * @date 2022/7/2
+ * @since 1.0
  */
 public abstract class AbstractConnectionPool implements SqlConnectionPool {
 

@@ -8,7 +8,7 @@ import java.sql.Connection;
  * sql的相关连接池实现
  *
  * @author xingchuan.qxc
- * @date 2022/6/12
+ * @since  1.0
  */
 public interface SqlConnectionPool {
 

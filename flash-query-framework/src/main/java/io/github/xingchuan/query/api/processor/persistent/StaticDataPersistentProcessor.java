@@ -4,7 +4,7 @@ package io.github.xingchuan.query.api.processor.persistent;
  * 静态数据保存处理
  *
  * @author xingchuan.qxc
- * @date 2022/6/4
+ * @since  1.0
  */
 public interface StaticDataPersistentProcessor<T> {
 

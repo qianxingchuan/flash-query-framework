@@ -12,7 +12,7 @@ import static io.github.xingchuan.sql.provider.impl.DefaultMybatisSqlParseProvid
  * mybatis的模板处理
  *
  * @author xingchuan.qxc
- * @date 2022/9/30
+ * @since 1.0
  */
 public class MyBatisTemplateProcessor implements DataRequestContentTemplateProcessor {
 
