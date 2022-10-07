@@ -2,12 +2,15 @@ package io.github.xingchuan.query.provider.processor.senario;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.json.JSON;
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.google.common.collect.Lists;
 import io.github.xingchuan.query.api.domain.base.DataQueryResponse;
 import io.github.xingchuan.query.api.domain.base.DataSource;
+import io.github.xingchuan.query.api.domain.base.QueryField;
 import io.github.xingchuan.query.api.domain.enums.CacheType;
+import io.github.xingchuan.query.api.domain.enums.ConvertorType;
 import io.github.xingchuan.query.api.domain.enums.DataSourceType;
 import io.github.xingchuan.query.api.domain.senario.DataQueryScenario;
 import io.github.xingchuan.query.api.domain.senario.cache.CacheConfig;
@@ -27,9 +30,11 @@ import io.github.xingchuan.sql.provider.impl.DefaultMybatisSqlParseProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.mockito.internal.util.collections.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.xingchuan.sql.provider.impl.DefaultMybatisSqlParseProvider.MYBATIS_SQL_TYPE;
@@ -114,6 +119,7 @@ public class DataQueryScenarioProcessorImplTest {
         verify(sqlDataQueryProcessorForTestCase, times(2)).queryData(any(), any());
     }
 
+
     /**
      * 场景2： 有缓存，只要参数匹配，就会通过缓存来返回数据
      *
@@ -135,6 +141,27 @@ public class DataQueryScenarioProcessorImplTest {
         assertThat(data).isNotNull();
 
         verify(sqlDataQueryProcessorForTestCase, times(1)).queryData(any(), any());
+    }
+
+    @Test
+    public void test_DesensitizeField_ok() throws Exception {
+        DataQueryScenario scenario = buildDefaultScenario();
+        List<QueryField> outputFields = new ArrayList<>();
+        QueryField field = new QueryField();
+        field.setFieldName("NAME");
+        field.setFieldConvertTypes(Sets.newSet(ConvertorType.DesensitizedType.name()));
+        outputFields.add(field);
+        scenario.setOutputFields(outputFields);
+        logger.info("{}", JSONUtil.parseObj(scenario));
+        JSONObject params = JSONUtil.createObj();
+        params.set("id", 1L);
+        DataQueryResponse<JSON> response = dataQueryScenarioProcessor.process(scenario, params);
+        logger.info("{}", response);
+        JSON data = response.getData();
+        assertThat(data).isNotNull();
+        JSONArray array = (JSONArray) data;
+        JSONObject result = array.getJSONObject(0);
+        assertThat(result.getStr("NAME")).isEqualTo("*************");
     }
 
     private DataQueryScenario buildCacheScenario() {

@@ -1,6 +1,7 @@
 package io.github.xingchuan.query.api.processor.convertor;
 
 import cn.hutool.json.JSONObject;
+import io.github.xingchuan.query.api.domain.enums.ConvertorType;
 
 /**
  * 字段值转换器
@@ -36,7 +37,8 @@ public interface FieldValueConvertor<I, O> {
 
     /**
      * 转换器的类型名称
-     *
+     * 预置一些系统定义的，当前只支持脱敏
+     * @see ConvertorType
      * @return 转换器的类型名称
      */
     String convertTypeCode();

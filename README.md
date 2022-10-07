@@ -132,7 +132,15 @@ FlashSqlEngine 是一个模板渲染引擎，详情参照 [FlashSqlEngine](https
         "code": "local_memory_cache",
         "cacheType": "LOCAL_MEMORY", // STATIC_LOCAL_FILE 静态化 , LOCAL_MEMORY本地内存
         "properties": {} // 对于扩展的缓存类型，一些扩展属性会放在这边，基础框架未使用
-    }
+    },
+    "outputFields": [
+        { 
+            "fieldName": "NAME", // 字段名
+            "fieldConvertTypes": [ // 需要处理的类型，当前只支持脱敏
+                "DesensitizedType"
+            ]
+        }
+    ]
 
 ```
 
