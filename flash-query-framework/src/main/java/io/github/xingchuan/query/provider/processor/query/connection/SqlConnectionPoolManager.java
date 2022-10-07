@@ -23,7 +23,7 @@ public class SqlConnectionPoolManager {
     /**
      * 注册连接池
      *
-     * @param pool
+     * @param pool 连接池
      */
     public void registerSqlConnectionPool(SqlConnectionPool pool) {
         if (pool == null) {
@@ -40,8 +40,8 @@ public class SqlConnectionPoolManager {
     /**
      * 通过类型获得一个连接池
      *
-     * @param poolType
-     * @return
+     * @param poolType 连接池类型code
+     * @return 连接池
      */
     public SqlConnectionPool fetchSqlConnectionPool(String poolType) {
         return connectionPoolMap.get(poolType);

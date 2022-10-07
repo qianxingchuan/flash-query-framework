@@ -28,6 +28,7 @@ public interface DataQueryProcessor {
      * @param update     更新请求，比如一个更新的SQL，api的请求body等
      * @param dataSource 数据源，比如mysql，另一个api服务
      * @return 执行数据源的返回结果，转换成统一的json格式返回
+     * @throws Exception
      */
     JSON executeUpdate(String update, DataSource dataSource) throws Exception;
 

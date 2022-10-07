@@ -22,7 +22,6 @@ public class CacheManager {
     /**
      * 注册一个缓存
      *
-     * @param type           缓存类型
      * @param cacheProcessor 缓存处理器
      */
     public void registerCacheProcessor(DataCacheProcessor cacheProcessor) {

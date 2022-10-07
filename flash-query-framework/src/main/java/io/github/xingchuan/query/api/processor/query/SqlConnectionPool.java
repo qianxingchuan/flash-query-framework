@@ -14,6 +14,7 @@ public interface SqlConnectionPool {
 
     /**
      * 注册一个数据源
+     * @throws Exception
      */
     void registerDataSource() throws Exception;
 

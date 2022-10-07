@@ -45,7 +45,7 @@ public class SqlDataQueryProcessorTest {
     public void test_从关系型数据库查询数据() throws Exception {
         SqlConnectionPoolManager sqlConnectionPoolManager = new SqlConnectionPoolManager();
         SqlDataQueryProcessor sqlDataQueryProcessor = new SqlDataQueryProcessor(sqlConnectionPoolManager, new DataQueryProcessorManager());
-        sqlConnectionPoolManager.registerSqlConnectionPool(new DefaultJdbcDirectConnectPool(sqlConnectionPoolManager));
+        new DefaultJdbcDirectConnectPool(sqlConnectionPoolManager);
 
         JSONObject dbProperties = JSONUtil.createObj();
         dbProperties.set("driverClassName", DRIVER_CLASS);

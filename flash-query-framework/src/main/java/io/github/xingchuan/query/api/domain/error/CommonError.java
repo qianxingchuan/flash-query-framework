@@ -10,7 +10,7 @@ import java.util.Map;
  * 框架的错误
  *
  * @author xingchuan.qxc
- * @since  1.0
+ * @since 1.0
  */
 public class CommonError extends Error {
 
@@ -37,7 +37,7 @@ public class CommonError extends Error {
     /**
      * 创建运行时异常
      *
-     * @return
+     * @return 运行时异常
      */
     public JevinRuntimeException newException() {
 
@@ -47,8 +47,8 @@ public class CommonError extends Error {
     /**
      * 转换错误提示
      *
-     * @param params
-     * @return
+     * @param params 错误信息kv
+     * @return 错误对象
      */
     public CommonError parseErrorMsg(Map<String, Object> params) {
         String content = StrUtil.format(this.errorMsg, params);
