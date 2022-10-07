@@ -11,6 +11,17 @@ import cn.hutool.json.JSONObject;
 public interface DataRequestContentTemplateProcessor {
 
     /**
+     * mybatis的模板处理
+     */
+    String MYBATIS_TEMPLATE_PROCESSOR = "MYBATIS_TEMPLATE_PARSER";
+
+    /**
+     * 默认的sql模板处理
+     */
+    String DEFAULT_TEMPLATE_PARSER = "DEFAULT_TEMPLATE_PARSER";
+
+
+    /**
      * 通过参数和模板，生成对应的content
      *
      * @param template 生成模板

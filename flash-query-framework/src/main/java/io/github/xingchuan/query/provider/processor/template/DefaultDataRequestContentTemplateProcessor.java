@@ -12,12 +12,13 @@ import org.slf4j.LoggerFactory;
 /**
  * 默认的查询模板更新
  *
+ * 注意： 有sql注入风险
+ *
  * @author xingchuan.qxc
  * @date 2022/7/9
  */
 public class DefaultDataRequestContentTemplateProcessor implements DataRequestContentTemplateProcessor {
 
-    public static final String DEFAULT_TEMPLATE_PARSER = "DEFAULT_TEMPLATE_PARSER";
 
     private Logger logger = LoggerFactory.getLogger(DefaultDataRequestContentTemplateProcessor.class);
 
