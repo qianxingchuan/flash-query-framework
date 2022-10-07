@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 对于输出查询场景的缓存处理
  *
  * @author xingchuan.qxc
- * @since  1.0
+ * @since 1.0
  */
 public class CacheConfig implements Serializable {
 
@@ -20,8 +20,11 @@ public class CacheConfig implements Serializable {
 
     /**
      * 缓存类型
+     * 预定义的类型 见
+     *
+     * @see CacheType
      */
-    private CacheType cacheType;
+    private String cacheType;
 
     /**
      * 缓存的其他配置
@@ -36,11 +39,11 @@ public class CacheConfig implements Serializable {
         this.code = code;
     }
 
-    public CacheType getCacheType() {
+    public String getCacheType() {
         return cacheType;
     }
 
-    public void setCacheType(CacheType cacheType) {
+    public void setCacheType(String cacheType) {
         this.cacheType = cacheType;
     }
 

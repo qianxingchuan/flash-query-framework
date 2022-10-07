@@ -8,14 +8,12 @@ import java.sql.Connection;
  * sql的相关连接池实现
  *
  * @author xingchuan.qxc
- * @since  1.0
+ * @since 1.0
  */
 public interface SqlConnectionPool {
 
     /**
      * 注册一个数据源
-     *
-     * @param dataSource
      */
     void registerDataSource() throws Exception;
 
@@ -23,8 +21,8 @@ public interface SqlConnectionPool {
     /**
      * 获得一个连接
      *
-     * @param dataSource
-     * @return
+     * @param dataSource 数据源
+     * @return 一个连接
      * @throws Exception
      */
     Connection getConnection(DataSource dataSource) throws Exception;
@@ -33,7 +31,7 @@ public interface SqlConnectionPool {
     /**
      * 连接池的类型
      *
-     * @return
+     * @return 连接池类型
      */
     String poolType();
 }
