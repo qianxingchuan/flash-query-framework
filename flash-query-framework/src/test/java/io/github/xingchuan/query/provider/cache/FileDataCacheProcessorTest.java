@@ -29,7 +29,7 @@ public class FileDataCacheProcessorTest {
         obj.set("code", "xingchuan.qxc");
         obj.set("name", "钱幸川");
 
-        FileDataCacheProcessor fileDataCacheProcessor = new FileDataCacheProcessor();
+        FileDataCacheProcessor fileDataCacheProcessor = new FileDataCacheProcessor(new CacheManager());
         fileDataCacheProcessor.saveCache(fileKey, obj);
 
         JSON persistValue = fileDataCacheProcessor.readCache(fileKey);
@@ -37,6 +37,9 @@ public class FileDataCacheProcessorTest {
         JSONObject target = (JSONObject) persistValue;
         assertThat(target.getStr("code")).isEqualTo("xingchuan.qxc");
         assertThat(target.getStr("name")).isEqualTo("钱幸川");
+
+        JSON json = fileDataCacheProcessor.readCache("not-exist-key.json");
+        assertThat(json).isNull();
     }
 
 }

@@ -8,7 +8,6 @@ import cn.hutool.json.JSONUtil;
 import io.github.xingchuan.query.api.domain.base.DataSource;
 import io.github.xingchuan.query.api.domain.enums.DataSourceType;
 import io.github.xingchuan.query.api.domain.error.CommonError;
-import io.github.xingchuan.query.api.processor.query.DataQueryProcessor;
 import io.github.xingchuan.query.provider.helper.ResponseBuilder;
 import io.github.xingchuan.query.provider.processor.query.connection.SqlConnectionPoolManager;
 import org.apache.commons.lang3.StringUtils;
@@ -26,20 +25,19 @@ import static io.github.xingchuan.query.provider.processor.query.connection.Defa
  * @author xingchuan.qxc
  * @since 1.0
  */
-public class SqlDataQueryProcessor implements DataQueryProcessor {
+public class SqlDataQueryProcessor extends AbstractDataQueryProcessor {
 
-
-    public static final String SQL_QUERY_TYPE = "SQL";
-
-    private SqlConnectionPoolManager sqlConnectionPoolManager;
+    private final SqlConnectionPoolManager sqlConnectionPoolManager;
 
     private String connectionPoolType;
 
-    public SqlDataQueryProcessor(SqlConnectionPoolManager sqlConnectionPoolManager) {
-        this(sqlConnectionPoolManager, null);
+
+    public SqlDataQueryProcessor(SqlConnectionPoolManager sqlConnectionPoolManager, DataQueryProcessorManager dataQueryProcessorManager) {
+        this(sqlConnectionPoolManager, dataQueryProcessorManager, null);
     }
 
-    public SqlDataQueryProcessor(SqlConnectionPoolManager sqlConnectionPoolManager, String connectionPoolType) {
+    public SqlDataQueryProcessor(SqlConnectionPoolManager sqlConnectionPoolManager, DataQueryProcessorManager dataQueryProcessorManager, String connectionPoolType) {
+        super(dataQueryProcessorManager);
         this.sqlConnectionPoolManager = sqlConnectionPoolManager;
         this.connectionPoolType = connectionPoolType;
         if (StringUtils.isBlank(connectionPoolType)) {
@@ -83,7 +81,7 @@ public class SqlDataQueryProcessor implements DataQueryProcessor {
 
     @Override
     public String processorType() {
-        return SQL_QUERY_TYPE;
+        return DataSourceType.DB.name();
     }
 
     /**

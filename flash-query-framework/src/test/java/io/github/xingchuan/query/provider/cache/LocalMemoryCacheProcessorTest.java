@@ -20,12 +20,15 @@ public class LocalMemoryCacheProcessorTest {
         obj.set("code", "xingchuan.qxc");
         obj.set("name", "钱幸川");
 
-        LocalMemoryCacheProcessor localMemoryCacheProcessor = new LocalMemoryCacheProcessor();
+        LocalMemoryCacheProcessor localMemoryCacheProcessor = new LocalMemoryCacheProcessor(new CacheManager());
         localMemoryCacheProcessor.saveCache(cacheKey, obj);
 
         JSON jsonInCache = localMemoryCacheProcessor.readCache(cacheKey);
         JSONObject target = (JSONObject) jsonInCache;
         assertThat(target.getStr("code")).isEqualTo("xingchuan.qxc");
         assertThat(target.getStr("name")).isEqualTo("钱幸川");
+
+        JSON json = localMemoryCacheProcessor.readCache("not-exist-key");
+        assertThat(json).isNull();
     }
 }

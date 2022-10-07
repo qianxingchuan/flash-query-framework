@@ -12,7 +12,7 @@ import java.util.List;
  * 包括查询模板， 数据源
  *
  * @author xingchuan.qxc
- * @since  1.0
+ * @since 1.0
  */
 public class DataQueryScenario implements Serializable {
 
@@ -27,9 +27,19 @@ public class DataQueryScenario implements Serializable {
     private String name;
 
     /**
+     * sqlId
+     */
+    private String sqlId;
+
+    /**
      * 查询模板
      */
     private String queryTemplateContent;
+
+    /**
+     * template 解析类型
+     */
+    private String templateProviderType;
 
     /**
      * 针对入参的特殊处理,如果不配置，只使用默认的前端输入作为参数，渲染模板
@@ -50,6 +60,22 @@ public class DataQueryScenario implements Serializable {
      * 缓存处理
      */
     private CacheConfig cacheConfig;
+
+    public String getTemplateProviderType() {
+        return templateProviderType;
+    }
+
+    public void setTemplateProviderType(String templateProviderType) {
+        this.templateProviderType = templateProviderType;
+    }
+
+    public String getSqlId() {
+        return sqlId;
+    }
+
+    public void setSqlId(String sqlId) {
+        this.sqlId = sqlId;
+    }
 
     public CacheConfig getCacheConfig() {
         return cacheConfig;

@@ -1,5 +1,6 @@
 package io.github.xingchuan.query.api.domain.base;
 
+import cn.hutool.json.JSONObject;
 import io.github.xingchuan.query.api.domain.enums.FieldDataType;
 
 import java.io.Serializable;
@@ -33,6 +34,18 @@ public class QueryField implements Serializable {
      */
     private Set<String> fieldConvertTypes;
 
+    /**
+     * 转换需要的一些参数
+     */
+    private JSONObject convertParams;
+
+    public JSONObject getConvertParams() {
+        return convertParams;
+    }
+
+    public void setConvertParams(JSONObject convertParams) {
+        this.convertParams = convertParams;
+    }
 
     public String getFieldName() {
         return fieldName;

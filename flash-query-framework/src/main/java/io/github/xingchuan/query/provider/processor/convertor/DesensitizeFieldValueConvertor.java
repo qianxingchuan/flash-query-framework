@@ -2,6 +2,7 @@ package io.github.xingchuan.query.provider.processor.convertor;
 
 import cn.hutool.core.util.DesensitizedUtil;
 import cn.hutool.json.JSONObject;
+import io.github.xingchuan.query.api.domain.enums.ConvertorType;
 import io.github.xingchuan.query.api.processor.convertor.FieldValueConvertor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -11,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * 脱敏相关的处理
  *
  * @author xingchuan.qxc
- * @since  1.0
+ * @since 1.0
  */
 public class DesensitizeFieldValueConvertor implements FieldValueConvertor<String, String> {
 
@@ -38,5 +39,10 @@ public class DesensitizeFieldValueConvertor implements FieldValueConvertor<Strin
             desensitizedType = DesensitizedUtil.DesensitizedType.valueOf(desensitizeType);
         }
         return DesensitizedUtil.desensitized(inputValue, desensitizedType);
+    }
+
+    @Override
+    public String convertTypeCode() {
+        return ConvertorType.DesensitizedType.name();
     }
 }

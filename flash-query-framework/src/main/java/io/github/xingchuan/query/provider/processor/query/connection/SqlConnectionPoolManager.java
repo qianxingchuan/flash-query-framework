@@ -16,9 +16,9 @@ import java.util.Map;
  */
 public class SqlConnectionPoolManager {
 
-    private Logger logger = LoggerFactory.getLogger(SqlConnectionPoolManager.class);
+    private final Logger logger = LoggerFactory.getLogger(SqlConnectionPoolManager.class);
 
-    private Map<String, SqlConnectionPool> connectionPoolMap = new HashMap<>();
+    private final Map<String, SqlConnectionPool> connectionPoolMap = new HashMap<>();
 
     /**
      * 注册连接池

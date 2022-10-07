@@ -25,4 +25,11 @@ public interface DataCacheProcessor {
      * @return 缓存的内容
      */
     JSON readCache(String key);
+
+    /**
+     * 缓存类型
+     *
+     * @return 缓存类型
+     */
+    String cacheType();
 }

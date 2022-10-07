@@ -7,8 +7,8 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.json.JSON;
 import cn.hutool.json.JSONUtil;
+import io.github.xingchuan.query.api.domain.enums.CacheType;
 import io.github.xingchuan.query.api.domain.error.CommonError;
-import io.github.xingchuan.query.api.processor.cache.DataCacheProcessor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +21,13 @@ import java.io.ByteArrayInputStream;
  * @author xingchuan.qxc
  * @since 1.0
  */
-public class FileDataCacheProcessor implements DataCacheProcessor {
+public class FileDataCacheProcessor extends AbstractCacheProcessor {
 
-    private Logger logger = LoggerFactory.getLogger(FileDataCacheProcessor.class);
+    private final Logger logger = LoggerFactory.getLogger(FileDataCacheProcessor.class);
+
+    public FileDataCacheProcessor(CacheManager cacheManager) {
+        super(cacheManager);
+    }
 
     @Override
     public void saveCache(String key, JSON record) {
@@ -43,7 +47,15 @@ public class FileDataCacheProcessor implements DataCacheProcessor {
         if (StringUtils.isBlank(key)) {
             throw CommonError.NOT_SUPPORT_OPERATION().parseErrorMsg(Dict.create().set("operation", "fileKey is empty")).newException();
         }
-        String content = IoUtil.readUtf8(FileUtil.getInputStream(key));
-        return JSONUtil.parse(content);
+        if (FileUtil.exist(key)) {
+            String content = IoUtil.readUtf8(FileUtil.getInputStream(key));
+            return JSONUtil.parse(content);
+        }
+        return null;
+    }
+
+    @Override
+    public String cacheType() {
+        return CacheType.STATIC_LOCAL_FILE.name();
     }
 }

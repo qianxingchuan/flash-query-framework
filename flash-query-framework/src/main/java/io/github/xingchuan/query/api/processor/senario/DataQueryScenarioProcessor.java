@@ -1,6 +1,7 @@
 package io.github.xingchuan.query.api.processor.senario;
 
 import cn.hutool.json.JSONObject;
+import io.github.xingchuan.query.api.domain.base.DataQueryResponse;
 import io.github.xingchuan.query.api.domain.senario.DataQueryScenario;
 
 /**
@@ -17,9 +18,10 @@ public interface DataQueryScenarioProcessor {
     /**
      * 处理一个数据场景
      *
-     * @param scenario
-     * @return
+     * @param scenario 查询场景的配置
+     * @param params   前端的入参
+     * @return 查询完成的结果
      */
-    JSONObject process(DataQueryScenario scenario);
+    DataQueryResponse process(DataQueryScenario scenario, JSONObject params) throws Exception;
 
 }
