@@ -7,8 +7,10 @@ import cn.hutool.json.JSONUtil;
 import com.google.common.collect.Lists;
 import io.github.xingchuan.query.api.domain.base.DataQueryResponse;
 import io.github.xingchuan.query.api.domain.base.DataSource;
+import io.github.xingchuan.query.api.domain.enums.CacheType;
 import io.github.xingchuan.query.api.domain.enums.DataSourceType;
 import io.github.xingchuan.query.api.domain.senario.DataQueryScenario;
+import io.github.xingchuan.query.api.domain.senario.cache.CacheConfig;
 import io.github.xingchuan.query.api.processor.convertor.FieldValueConvertor;
 import io.github.xingchuan.query.api.processor.senario.DataQueryScenarioProcessor;
 import io.github.xingchuan.query.base.PrepareData;
@@ -24,12 +26,17 @@ import io.github.xingchuan.sql.engine.FlashSqlEngine;
 import io.github.xingchuan.sql.provider.impl.DefaultMybatisSqlParseProvider;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 import static io.github.xingchuan.sql.provider.impl.DefaultMybatisSqlParseProvider.MYBATIS_SQL_TYPE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * 场景相关配置
@@ -48,6 +55,8 @@ public class DataQueryScenarioProcessorImplTest {
     private String JDBC_URL = "jdbc:h2:tcp://localhost:9092/mem:sample_db";
 
     private DataQueryScenarioProcessor dataQueryScenarioProcessor = null;
+
+    SqlDataQueryProcessor sqlDataQueryProcessorForTestCase = null;
 
     @Before
     public void prepareData() throws Exception {
@@ -69,7 +78,10 @@ public class DataQueryScenarioProcessorImplTest {
         SqlConnectionPoolManager sqlConnectionPoolManager = new SqlConnectionPoolManager();
         //自动注册到sql连接管理
         new DefaultJdbcDirectConnectPool(sqlConnectionPoolManager);
-        new SqlDataQueryProcessor(sqlConnectionPoolManager, dataQueryProcessorManager);
+
+        // 注册spy的这个bean，便于后面来进行测试用例测试
+        sqlDataQueryProcessorForTestCase = Mockito.spy(new SqlDataQueryProcessor(sqlConnectionPoolManager, dataQueryProcessorManager));
+        dataQueryProcessorManager.registerDataQueryProcessor(sqlDataQueryProcessorForTestCase);
 
         // 初始化SqlEngine
         FlashSqlEngine sqlEngine = new FlashSqlEngine();
@@ -90,6 +102,50 @@ public class DataQueryScenarioProcessorImplTest {
         params.set("id", 1L);
         DataQueryResponse<JSON> response = dataQueryScenarioProcessor.process(scenario, params);
         logger.info("{}", response);
+        JSON data = response.getData();
+        assertThat(data).isNotNull();
+
+
+        response = dataQueryScenarioProcessor.process(scenario, params);
+        logger.info("{}", response);
+        data = response.getData();
+        assertThat(data).isNotNull();
+
+        verify(sqlDataQueryProcessorForTestCase, times(2)).queryData(any(), any());
+    }
+
+    /**
+     * 场景2： 有缓存，只要参数匹配，就会通过缓存来返回数据
+     *
+     * @throws Exception
+     */
+    @Test
+    public void test_cache_scenario() throws Exception {
+        DataQueryScenario scenario = buildCacheScenario();
+        JSONObject params = JSONUtil.createObj();
+        params.set("id", 1L);
+        DataQueryResponse<JSON> response = dataQueryScenarioProcessor.process(scenario, params);
+        logger.info("{}", response);
+        JSON data = response.getData();
+        assertThat(data).isNotNull();
+
+        response = dataQueryScenarioProcessor.process(scenario, params);
+        logger.info("{}", response);
+        data = response.getData();
+        assertThat(data).isNotNull();
+
+        verify(sqlDataQueryProcessorForTestCase, times(1)).queryData(any(), any());
+    }
+
+    private DataQueryScenario buildCacheScenario() {
+        DataQueryScenario scenario = buildDefaultScenario();
+        CacheConfig cacheConfig = new CacheConfig();
+        cacheConfig.setCacheType(CacheType.LOCAL_MEMORY.name());
+        cacheConfig.setCode("local_memory_cache");
+        cacheConfig.setProperties(JSONUtil.createObj());
+        scenario.setCacheConfig(cacheConfig);
+        logger.info("{}", JSONUtil.parseObj(scenario));
+        return scenario;
     }
 
     private DataQueryScenario buildDefaultScenario() {
@@ -102,6 +158,8 @@ public class DataQueryScenarioProcessorImplTest {
         scenario.setOutputFields(null);
         scenario.setTemplateProviderType(MYBATIS_SQL_TYPE);
         scenario.setSqlId("getUserById");
+
+        logger.info("{}", JSONUtil.parseObj(scenario));
         return scenario;
     }
 

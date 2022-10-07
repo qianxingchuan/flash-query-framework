@@ -111,7 +111,28 @@ FlashSqlEngine 是一个模板渲染引擎，详情参照 [FlashSqlEngine](https
 ### 场景配置字段解释
 
 ```
-    
+
+    {
+    "code": "default-test-scenario", // 场景code
+    "name": "测试场景1", // 场景名称
+    "sqlId": "getUserById", // 配置文件里面的sqlId，如果同时配置sqlId和queryTemplateContent，以queryTemplateContent为准
+    "templateProviderType": "MYBATIS_SQL_TYPE", // 模板渲染的类型，MYBATIS_SQL_TYPE是FlashSqlEngine默认提供的模板渲染（兼容mybatis）
+    "dataSource": { // 配置数据源
+        "code": "sample_db",
+        "dataSourceType": "DB", 
+        "properties": { // jdbc配置在properties里面
+            "driverClassName": "org.h2.Driver",
+            "url": "jdbc:h2:tcp://localhost:9092/mem:sample_db",
+            "userName": "root",
+            "password": "root"
+            }
+        }
+    },
+    "cacheConfig": { // 缓存配置，当前支持两种，本地JVM缓存以及静态化文件的缓存
+        "code": "local_memory_cache",
+        "cacheType": "LOCAL_MEMORY", // STATIC_LOCAL_FILE 静态化 , LOCAL_MEMORY本地内存
+        "properties": {} // 对于扩展的缓存类型，一些扩展属性会放在这边，基础框架未使用
+    }
 
 ```
 
